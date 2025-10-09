@@ -1,29 +1,24 @@
-import React, {useId} from 'react'
+import React from 'react'
+import appwriteService from "../appwrite/config"
+import {Link} from 'react-router-dom'
 
-function Select({
-    options,
-    label,
-    className,
-    ...props
-}, ref) {
-    const id = useId()
+function PostCard({$id, title, featuredImage}) {
+    
     return (
-        <div className='w-full'>
-            {label && <label htmlFor={id} className=''></label>}
-            <select
-                {...props}
-                id={id}
-                ref={ref}
-                className={`px-3 py-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 w-full ${className}`}
-            >
-                {options?.map((option) => (
-                    <option key={option} value={option}>
-                        {option}
-                    </option>
-                ))}
-            </select>
-        </div>
+        <Link to={`/post/${$id}`}>
+            <div className='w-full bg-gray-100 rounded-xl p-4'>
+                <div className='w-full justify-center mb-4'>
+                    <img src={appwriteService.getFilePreview(featuredImage)} alt={title}
+                        className='rounded-xl' />
+
+                </div>
+                <h2
+                    className='text-xl font-bold'
+                >{title}</h2>
+            </div>
+        </Link>
     )
 }
 
-export default React.forwardRef(Select);
+
+export default PostCard;
